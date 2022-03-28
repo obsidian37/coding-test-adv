@@ -8,7 +8,7 @@ const adminRouter = require('./routes/admin');
 
 const { dbPool } = require('./db');
 
-//async functions
+//common async function
 const dbQuery = async (query) => {
   try {
     const response = await dbPool.query(query);

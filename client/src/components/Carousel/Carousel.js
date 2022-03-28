@@ -5,10 +5,10 @@ import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 
 const Carousel = ({children}) => {
 
-    //hook to manage state
+    //hook to manage image index
     const [index, setIndex] = useState(0);
 
-    //function to manage changing immage
+    //function to manage changing image
     const updateIndex = (index) => {
         
         //1) validate index input and adjust if necessary (shouldn't reach here based on disabled logic but adding just in case)
@@ -24,7 +24,7 @@ const Carousel = ({children}) => {
         setIndex(index);
     };
 
-    //children items
+    //children items + the arrows to navigate the carousel
     return (
         <div className="carousel">
             <div className="carousel-container" style={{transform: `translateX(-${index * 100}%)`}}>

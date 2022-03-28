@@ -14,7 +14,7 @@ const validateToken = (token) => {
 router.post('/category', async (req,res) => {
     //validate token
     if (!validateToken(req.cookies.token)) {
-      res.status(404).send('Forbidden');
+      res.status(404).send('Forbidden.');
     }
 
     //attempts to insert new category
@@ -37,10 +37,10 @@ router.post('/category', async (req,res) => {
 router.delete('/category', async (req,res) => {
   //validate token
   if (!validateToken(req.cookies.token)) {
-    res.status(404).send('Forbidden');
+    res.status(404).send('Forbidden.');
   }
 
-  //attempts to insert new category
+  //attempts to delete new category
   let requestCategory = req ? req.query['category'] : null;
   if (requestCategory) {
     try {

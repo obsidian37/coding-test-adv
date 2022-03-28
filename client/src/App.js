@@ -7,7 +7,7 @@ import { CarouselRoutes } from './routes';
 
 function App() {
 
-  //manages fetched Urls + Categories
+  //hooks to manage 1) loading state, list of categories that usuer can choose, and the urls for the carousel
   const [isPageLoading , setIsPageLoading] = useState(false);
   const [listOfCategories, setListOfCategories] = useState(null);
   const [selectedUrls, setSelectedUrls] = useState(null);
@@ -34,7 +34,9 @@ function App() {
     setIsPageLoading(false);
   };
 
-  //did not import default react bootstrap css overrides as it does not work with the homebrew carousel solution, so keeping it as standard checkbox format
+  //Note: did not import default react bootstrap css overrides as it does not work with the homebrew carousel solution, so keeping it as standard checkbox format
+  //1) Dynamically generates the checkboxes based on query to the express layer (using react bootstrap without the imported css)
+  //2) Dynamically generates the Carousel items within the Container, generated based on query to express layer (using img src)
   return (
     <div className="App">
       <ToggleButtonGroup className="carousel-selection" type="checkbox" onChange={getUrls}>
