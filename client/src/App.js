@@ -1,23 +1,63 @@
 import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import { Carousel,  CarouselItem }from './components/Carousel';
+import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+import { CarouselRoutes } from './routes';
 
 function App() {
+
+  //manages fetched Urls + Categories
+  const [isPageLoading , setIsPageLoading] = useState(false);
+  const [listOfCategories, setListOfCategories] = useState(null);
+  const [selectedUrls, setSelectedUrls] = useState(null);
+
+  //useEffect 
+  //const [selectedCategories, setSelectedCategories] = useState(null);
+
+  //async call functions
+  async function getAllCategories () {
+    const allCategoriesResponse = await CarouselRoutes.getAllCategories();
+    setListOfCategories(allCategoriesResponse['categories']);
+  };
+  async function getUrls (selectedCategories) {
+    const urlResponse = await CarouselRoutes.getUrlOfCategories({categories: selectedCategories.toString()});
+    //update with new URLs + reset page loading
+    setSelectedUrls(urlResponse['urls']);
+    setIsPageLoading(false);
+  };
+
+  //initial load of categories
+  useEffect(() => {
+    getAllCategories();
+  }, []);
+
+  const updateSelectedCategories = (value) => {
+    //set page to loading
+    setIsPageLoading(true);
+    //setSelectedCategories(value);
+    getUrls(value);
+  };
+
+  //did not import default react bootstrap css overrides as it does not work with the homebrew carousel solution, so keeping it as standard checkbox format
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ToggleButtonGroup className="carousel-selection" type="checkbox" onChange={updateSelectedCategories}>
+        {listOfCategories ? listOfCategories.map((category, index) => {
+            return (
+              <ToggleButton className="carousel-selection-button" value={category}>
+                {category}
+              </ToggleButton>
+            );
+          }) : null}
+      </ToggleButtonGroup>
+      <Carousel>
+          {!isPageLoading && selectedUrls && selectedUrls.length > 0 ? selectedUrls.map((url) => {
+            return (
+              <CarouselItem content={url}/>
+            );
+          }) : <img src={logo} className="App-logo" alt="logo" />}
+      </Carousel>
     </div>
   );
 }

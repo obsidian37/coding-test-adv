@@ -1,0 +1,45 @@
+/* Main Page */
+.carousel {
+    overflow: hidden;
+    margin: 50px;
+}
+
+/* Top Selection buttons*/
+.carousel-selection {
+    margin: 20px;
+}
+.carousel-selection-button {
+    display:inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    padding: 10px;
+}
+  
+
+/* Container for carousel */
+.carousel-container {
+    white-space: nowrap;
+    transition: transform 0.3s;
+    
+}
+
+.carousel-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+    background-color: green;
+    color:#fff
+}
+
+
+/* Left Right buttons*/
+.carousel-button {
+    display:inline-flex;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin: 20px;
+}
